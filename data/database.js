@@ -1,3 +1,4 @@
+const { text } = require("body-parser");
 const pkg  = require("pg");
 const {Client} = pkg;
 
@@ -9,6 +10,12 @@ const client = new Client({
     database: "mdmproject"
 });
 
+const userSchema = new Client({
+    email: text,
+    password: text,
+})
+
+// const User = client.model("user", userSchema)
 
 client.connect()
 .then(()=>console.log("Database Connected"))
@@ -16,3 +23,4 @@ client.connect()
 
 
 exports.dbConnect = client; 
+exports.userSchema = userSchema;
