@@ -58,10 +58,11 @@ create table city_committee(
 create table student_attendance(
     school_id int not null,
     date date not null,
-    primary_attendance int,
+    mdm_primary_attendance int,
+    mdm_secondary_attendance int,
     -- secondary_attendance int,
-    -- mdm_primary_attendance int,
-    holiday bool,
+    -- primary_attendance int,
+    -- holiday bool,
     primary key (school_id, date),
     constraint fk_student_attendance_school foreign key (school_id)
     references school (school_id)
@@ -73,7 +74,7 @@ create table cook(
     salary decimal check (salary > 0),
     school_id int,
     constraint fk_cook_school foreign key (school_id)
-    references school (school)
+    references school (school_id)
 );
 
 create table payment(
@@ -84,7 +85,7 @@ create table payment(
     sender_account varchar not null,
     amount decimal not null check (amount > 0),
     constraint fk_payment_school foreign key (school_id)
-    references school (school),
+    references school (school_id),
     check (sender_account <> receiver_account)
 );
 
@@ -101,7 +102,7 @@ create table inspection_feedback(
 create table item_prices(
     item_name varchar,
     price decimal not null check (price > 0),
-    month int not null (month >= 1 and month <= 12),
+    month int not null check (month >= 1 and month <= 12),
     year int not null,
     city_id int,
     primary key (item_name, month, year, city_id),
@@ -136,8 +137,8 @@ create table mdm_school_committee(
     -- teacher_id int,
     -- teacher_name varchar,
     budget decimal not null check (budget >= 0),
-    primary_enrollment int not null (primary_enrollment >= 0),
-    secondary_enrollment int not null (secondary_enrollment >= 0),
+    primary_enrollment int not null check (primary_enrollment >= 0),
+    secondary_enrollment int not null check (secondary_enrollment >= 0),
     constraint fk_mdm_committee_school foreign key (school_id)
     references school (school_id)
 );
@@ -148,7 +149,7 @@ create table district_static(
     district_id int,
     day menu_day,
     items text[],
-    primary key (district_id, menu_day),
+    primary key (district_id, day),
     constraint fk_district_static_district_committee foreign key(district_id)
     references district_committee (district_id)
 );
@@ -158,7 +159,7 @@ create table daily_stock_usage(
     item_name varchar,
     item_quantity decimal check (item_quantity >= 0),
     date date,
-    primary key (school_id, item_name, date)
+    primary key (school_id, item_name, date),
     constraint fk_daily_stock_usage_school foreign key (school_id)
     references school (school_id),
     constraint fk_daily_stock_usage_item_prices foreign key (item_name)
@@ -177,3 +178,24 @@ create table stock_left(
 );
 
 -- now have to create triggers to check extra constraints
+
+create or replace function constraint_attendance()
+returns trigger
+language plpgsql
+as $$
+begin
+    if (new.mdm_primary_attendance >= (select primary_enrollment from mdm_school_committee where school_id = new.school_id) or
+        new.mdm_secondary_attendance >= (select secondary_enrollment from mdm_school_committee where school_id = new.school_id))
+    then
+        raise notice 'daily attendance more then max strength';
+    end if;
+    return new;
+end;
+$$;
+
+create or replace trigger constraint_attendance_trigger
+before insert or update 
+of 
+on student_attendance
+for each row
+execute procedure constraint_attendance();
