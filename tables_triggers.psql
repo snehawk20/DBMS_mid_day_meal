@@ -394,24 +394,186 @@
 
 
 
+--update stock left based on daily stock usage
+-- CREATE OR REPLACE function update_stock_left_daily ()
+-- returns trigger
+-- LANGUAGE plpgsql
+-- AS
+-- $$
+-- BEGIN
+
+-- 	if new.item_name in (select item_name from item_prices
+--                     	where month = (select extract(MONTH from new.date)) and year = (select EXTRACT(YEAR from new.date))
+--                         	and city_id = (select city_id from school where school_id = new.school_id) )
+-- 	then
+--     	IF (TG_OP = "INSERT")
+--     	THEN
+--         	update stock_left
+--         	set item_quantity = item_quantity- new.item_quantity
+--         	where item_name = new.item_name and  month = (select extract(MONTH from new.date)) and year = (select EXTRACT(YEAR from new.date)) and school_id = new.school_id;
+--     	ELSIF (TG_OP = "UPDATE")
+--     	THEN
+--         	if(old.item_quantity <> new.item_quantity)
+--         	then
+--             	update stock_left
+--             	set item_quantity = item_quantity +old.item_quantity -new.item_quantity
+--             	where item_name = new.item_name and month = (select extract(MONTH from new.date)) and year = (select EXTRACT(YEAR from new.date)) and school_id = new.school_id;
+--         	END IF;
+--     	END IF;
+-- 	ELSE
+--     	raise exception 'Invalid Item Name';
+-- 	END IF;
+-- 	return new;
+-- END;
+-- $$;
+
+
+-- create trigger update_stock_left_daily_trigger
+-- before insert or update on daily_stock_usage
+-- for each row
+-- execute procedure update_stock_left_daily();
 
 
 
 
+-- -- Checking whether insertion or updation in stock left is valid (instead of composite foreign key)
+-- CREATE OR REPLACE function checking_item_name_stock_left_daily_trigger_func()
+-- returns trigger
+-- LANGUAGE plpgsql
+-- AS
+-- $$
+-- BEGIN
+
+-- 	if new.item_name in (select item_name from item_prices
+--                     	where month = (select extract(MONTH from new.date)) and year = (select EXTRACT(YEAR from new.date))
+--                         	and city_id = (select city_id from school where school_id = new.school_id) )
+-- 	then
+-- 		return new;
+--     else
+-- 		raise exception 'Invalid item_name/month/year in while updating stock left';
+-- 	end if;
+-- end;
+-- $$;
+
+-- create trigger checking_item_name_stock_left_daily_trigger
+-- before insert or update on stock_left
+-- for each row
+-- execute procedure checking_item_name_stock_left_daily_trigger_func();
+
+
+-- alter table inspection_feedback
+-- add constraint date_check_constraint CHECK(date <= current_date);
+
+
+-- alter table grievances
+-- add constraint date_check_constraint_greivances CHECK(date <= current_date);
+
+-- alter table grievances
+-- add constraint phone_number_constraint_greivances CHECK(phone_no similar to '^[1-9]{1}[0-9]{9}$');
+
+
+-- alter table school
+-- add constraint contact_number_constraint_school CHECK(contact_number similar to '^[1-9]{1}[0-9]{9}$') ;
+
+
+-- alter table school
+-- add constraint email_constraint_school CHECK(email similar to '^[a-zA-Z]+@[a-zA-Z]+[.](org)[.](in)$');
+
+
+-- alter table school
+-- add constraint account_number_constraint_school CHECK(account_number similar to '^[1-9]{1}[0-9]{10}$');
+
+
+-- alter table city_committee
+-- add column total_budget decimal check(total_budget >= 0);
+
+-- alter table district_committee
+-- add column total_budget decimal check(total_budget >= 0);
 
 
 
+-- budget constraint
+-- create or replace function budget_check_func()
+-- returns trigger
+-- language plpgsql
+-- as
+-- $$
+-- DECLARE
+--     new_city_id integer;
+--     new_district_id integer;
+-- BEGIN
+--     select city_id into new_city_id from school where school_id = new.school_id;
+--     select district_id into new_district_id from school where school_id = new.school_id;
+
+--     if (TG_OP = "INSERT")
+--     THEN
+--         IF (new.budget+ (select total_budget from city_committee where city_id = new_city_id)
+--         <= (select mdm_budget from city_committee where city_id = new_city_id))
+--         then
+--             update city_committee
+--             set total_budget = new.budget+ total_budget
+--             where city_id = new_city_id;
+--             return new;
+--         else
+--             raise exception 'Total Budget is not less than the budget allotted to the city';
+--         end if;
+
+--         IF (new.budget+ (select total_budget from district_committee where district_id = new_district_id)
+--         <= (select mdm_budget from district_committee where district_id = new_district_id))
+--         then
+--             update district_committee
+--             set total_budget = new.budget+ total_budget
+--             where district_id = new_district_id;
+--             return new;
+--         else
+--             raise exception 'Total Budget is not less than the budget allotted to the district';
+--         end if;
+
+--         return new;
+--     elsif (TG_OP = "UPDATE")
+--     THEN
+--         IF (new.budget - old.budget + (select total_budget from city_committee where city_id = new_city_id)
+--         <= (select mdm_budget from city_committee where city_id = new_city_id))
+--         then
+--             update city_committee
+--             set total_budget = new.budget+ total_budget - old.budget
+--             where city_id = new_city_id;
+--             return new;
+--         else
+--             raise exception 'Total Budget is not less than the budget allotted to the city';
+--         end if;
+
+--         IF (new.budget - old.budget + (select total_budget from district_committee where district_id = new_district_id)
+--         <= (select mdm_budget from district_committee where district_id = new_district_id))
+--         then
+--             update district_committee
+--             set total_budget = new.budget+ total_budget- old.budget
+--             where district_id = new_district_id;
+--             return new;
+--         else
+--             raise exception 'Total Budget is not less than the budget allotted to the district';
+--         end if;
+
+--         return new;
+--     elsif (TG_OP = "DELETE")
+--     THEN
+--         update city_commitee
+--         set total_budget = total_budget-old.budget
+--         where city_id = new_city_id;
+
+--         update district_committee
+--         set total_budget = total_budget-old.budget
+--         where district_id = new_district_id;
+
+--     end if;
+-- end;
+-- $$;
 
 
-
-
-
-
-
-
-
-
-
+-- create trigger budget_check_trigger
+-- before insert or update or delete on mdm_school_committee 
+-- for each row
+-- execute procedure budget_check_func();
 
 
 
