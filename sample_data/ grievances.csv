@@ -1,0 +1,7 @@
+complaint_id,school_id,category,description,status,date,actions_taken
+1,2,general,not served on time,resolved,13/04/23,none
+2,4,hygiene,flies in food,new,14/04/23,
+3,6,quantity,need more to be served,progressing,15/04/23,
+4,9,hygiene,water contamination,resolved,16/04/23,inspection committee stronger
+5,10,miscellaneous,bad seating arrangements,resolved,17/04/23,changed officer
+6,14,quantity,does not give seconds,progressing,18/04/23,

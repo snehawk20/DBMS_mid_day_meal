@@ -1,0 +1,13 @@
+city_id,district_id,city_name,officer_id,officer_name,schools_registered,mdm_budget,total_budget
+1,1,vaikom,1,siddhu,2,60000,0
+2,1,thalayolaporambu,2,yukta,2,60000,0
+3,1,peruva,3,angel,2,50000,0
+4,2,piravom,1,nikhitha,3,90000,0
+5,2,panampilly nagar,2,sneha,0,20000,0
+6,2,edapally,3,lakshmi,2,50000,0
+7,3,pattom,1,amritanshu,1,40000,0
+8,3,varkala,2,vani,1,40000,0
+9,3,attingal,3,devika,3,60000,0
+10,4,kanjikode,1,meenakshi,2,60000,0
+11,4,chandranagar,2,aditya,1,40000,0
+12,4,ahalia,3,sam,3,80000,0

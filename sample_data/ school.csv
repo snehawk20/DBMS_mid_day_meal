@@ -1,0 +1,23 @@
+school_id,school_name,principal_name,contact_number,email,school_type,city_id,district_id,primary_strength,secondary_strength,mdm_enrollment
+1,montessori,ligy,6347112010,montessori.org.in,govt-aided,1,1,11,14,TRUE
+2,KV,vijaya,4682133868,KV.org.in,govt,1,1,18,12,TRUE
+3,DAV,renuka,5513183438,DAV.org.in,private,2,1,11,16,TRUE
+4,Ryan,meena,4198011381,Ryan.org.in,central,2,1,15,14,TRUE
+5,Bhavans,seema,9838719264,Bhavans.org.in,govt-aided,3,1,19,17,TRUE
+6,JNV,krithika,1702617422,JNV.org.in,govt,3,1,14,11,TRUE
+7,GHSS,ligy,6705301047,GHSS.org.in,private,4,2,14,20,TRUE
+8,DPS,vijaya,5061382429,DPS.org.in,central,4,2,19,16,TRUE
+9,aba,renuka,2792733094,aba.org.in,govt-aided,4,2,15,15,TRUE
+10,army public school,meena,2324680004,army_public_school.org.in,govt,12,4,10,11,TRUE
+11,carmel,seema,3926717137,carmel.org.in,private,6,2,14,20,TRUE
+12,chinmaya,krithika,1446303685,chinmaya.org.in,central,6,2,16,13,TRUE
+13,lake mount,ligy,4341872505,lake_mount.org.in,govt-aided,7,3,13,12,TRUE
+14,gh varghese,vijaya,9983045818,gh_varghese.org.in,govt,8,3,12,19,TRUE
+15,vidya bharati,renuka,1424392033,vidya_bharati.org.in,private,9,3,19,17,TRUE
+16,saraswati,meena,2626779136,saraswati.org.in,central,9,3,10,13,TRUE
+17,vidya niketan,seema,7416975989,vidya_niketan.org.in,govt-aided,9,3,10,17,TRUE
+18,sri chaitanya,krithika,4293276940,sri_chaitanya.org.in,govt,10,4,11,17,TRUE
+19,narayana,ligy,4679456855,narayana.org.in,private,10,4,19,18,TRUE
+20,sasi,vijaya,2727702901,sasi.org.in,central,11,4,20,20,TRUE
+21,mount st ann,renuka,5215241280,mount_st_ann.org.in,govt-aided,12,4,12,11,TRUE
+22,railway school,meena,1600282779,railway_school.org.in,govt,12,4,15,17,TRUE
