@@ -4,35 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <title>Mid Day Meal Scheme</title>
   </head>
   <body>
-    <!-- <div class="container">
-        <div class="screen">
-            <div class="screen__content">
-                <form class="login" method="post" action="/login">
-                    <div class="login__field">
-                        <i class="login__icon fas fa-user"></i>
-                        <input type="text" class="login__input" placeholder="User name / Email">
-                    </div>
-                    <div class="login__field">
-                        <i class="login__icon fas fa-lock"></i>
-                        <input type="password" class="login__input" placeholder="Password">
-                    </div>
-                    <button class="button login__submit">
-                        <span class="button__text">Log In Now</span>
-                        <i class="button__icon fas fa-chevron-right"></i>
-                    </button>				
-                </form>
-            </div>
-            <div class="screen__background">
-                <span class="screen__background__shape screen__background__shape4"></span>
-                <span class="screen__background__shape screen__background__shape3"></span>		
-                <span class="screen__background__shape screen__background__shape2"></span>
-                <span class="screen__background__shape screen__background__shape1"></span>
-            </div>		
-        </div>
-    </div> -->
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+
+    <!-- <form action="/login" method = "post">
+      <label for="name">Name :</label>
+      <input type="text" id="instName" name="name" placeholder="Instructor Name..">
+  
+      <label for="email">Email* :</label>
+      <input type="text" id="instEmail" name="email" required  placeholder="Instructor's emailID..">
+  
+      <input type="submit" value="Add Faculty">
+    </form> -->
+
+    <form action="/login" method="post">
+        <h3>Login Here</h3>
+
+        <label for="name">Username</label>
+        <input type="text" placeholder="UserID" id="username" name = "username">
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name = "password">
+
+        <label for="role">Role</label>
+        <select class="selectbtn" name="Role">
+          <option selected>Select Role</option>
+          <option id="school" value ="school">School Manager</option>
+          <option id="city" value ="city">City Officer</option>
+          <option id="district" value ="district">District Officer</option>
+
+        </select>
+
+        <input type="submit" class = "sbtbutton" value = "Log In" >
+       
+    </form>
   </body>
 </html>
