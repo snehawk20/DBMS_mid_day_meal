@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- <link  rel="stylesheet" type="text/css"  href="school.css" /> -->
+    <link rel="shortcut icon" href="#">
+    <title>Mid Day Meal</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+	list-style: none;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body{
+	background: #f5f6fa;
+}
+
+.wrapper .sidebar{
+	background: rgb(5, 68, 104);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100%;
+	padding: 20px 0;
+	transition: all 0.5s ease;
+}
+
+.wrapper .sidebar .profile{
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.wrapper .sidebar .profile img{
+	display: block;
+	width: 200px;
+	height: 200px;
+    border-radius: 50%;
+	margin: 0 auto;
+}
+
+.wrapper .sidebar .profile h3{
+	color: #ffffff;
+	margin: 10px 0 5px;
+}
+
+.wrapper .sidebar .profile p{
+	color: rgb(206, 240, 253);
+	font-size: 18px;
+}
+
+.wrapper .sidebar ul li a{
+	display: block;
+	padding: 13px 30px;
+	border-bottom: 1px solid #10558d;
+	color: rgb(241, 237, 237);
+	font-size: 18px;
+	position: relative;
+}
+
+.wrapper .sidebar ul li a .icon{
+	color: #dee4ec;
+	width: 30px;
+	display: inline-block;
+}
+
+ 
+
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active{
+	color: #0c7db1;
+
+	background:white;
+    border-right: 2px solid rgb(5, 68, 104);
+}
+
+.wrapper .sidebar ul li a:hover .icon,
+.wrapper .sidebar ul li a.active .icon{
+	color: #0c7db1;
+}
+
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+	display: block;
+}
+
+.wrapper .section{
+	width: calc(100% - 280px);
+	margin-left: 280px;
+	transition: all 0.5s ease;
+}
+
+.wrapper .section .top_navbar{
+	background: rgb(7, 105, 185);
+	height: 70px;
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+ 
+}
+
+.wrapper .section .top_navbar .main_content a{
+	font-size: 28px;
+	color: #f4fbff;
+}
+
+.wrapper .section .top_navbar .main_content a:hover{
+	color: #a2ecff;
+}
+
+ .wrapper .section .container{
+	margin: 30px;
+	background: #fff;
+	padding: 50px;
+	line-height: 28px;
+}
+
+body.active .wrapper .sidebar{
+	left: -225px;
+}
+
+body.active .wrapper .section{
+	margin-left: 0;
+	width: 100%;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="section">
+         <div class="top_navbar">
+             <div class="main_content">
+                 <a href="#">
+                     <i class="fas fa-bars"> Dashboard</i>
+                 </a>
+             </div>
+         </div>
+         <div class="container">
+
+            <div class="content" id="reports-content">
+                <h3>Added Stock Successfully!! </h3>
+                <%for (let i=0; i< stockData.length; i++){%>
+                    <div>
+                    <label for="text" style ="text-transform:capitalize;"><%=stockData[i].item_name%></label> 
+                    : &nbsp  <%=stockData[i].item_quantity%>
+                    </div>
+                <%}%>
+
+                    <input type = "button" value="Back" onclick="back();"> 
+    
+        </div>
+     </div>
+         <div class="sidebar">
+             <div class="profile">
+                 <img src="/schoolLogo.jpg" alt="profile_picture">
+                 <p>School ID: <%= schoolid%></p>
+             </div>
+             <ul>
+                 
+                 <li>
+                     <a href="#" id="reports">
+                         <span class="icon"><i class="fas fa-chart-line"></i></span>
+                         <span class="item">Add Stock</span>
+                     </a>
+                 </li>
+            
+                 <li>
+                     <a href="/logout">
+                         <span class="icon"><i class="fas fa-power-off"></i></span>
+                         <span class="item">Logout</span>
+                     </a>
+                 </li>
+             </ul>
+         </div>
+         
+     </div>
+  
+
+    <script>
+        function back() {
+			window.location.href = '/school/<%= schoolid%>'};	
+    </script>
+
+    
+</body>
+</html>

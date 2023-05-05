@@ -180,7 +180,16 @@ body.active .wrapper .section{
                 <b>principal_name: </b><%=school.principal_name%><br>
                 ......so on<br>
             </div>
-            <div class="content" id="stock-content"></div>     
+            <div class="content" id="stock-content">
+                <h3>Add Stock For Items:</h3>
+                <form method="post" action="/school/<%= school.school_id%>/addStock"> 
+                    <%for (let i=0; i< stock.length; i++){%>
+                    <label for="text" style ="text-transform:capitalize;"><%=stock[i].item_name%></label>
+                    <input type="text" name="<%=stock[i].item_name%>" value="0" /> &nbsp Current: <%=stock[i].item_quantity%><br>
+                    <%}%>
+                    <input type="submit" value="Add Stock"/>
+                </form>
+            </div>     
             <div class="content" id="students-content">
                 <h3>Students Data:</h3>
                 <%=students%>
@@ -193,7 +202,8 @@ body.active .wrapper .section{
             </div>
             
             <div class="content" id="dailyUsage-content">
-                <h3>dailyUsage-content:</h3>
+                <h3>Daily Stock content:</h3>
+
                 <!-- <%=bmi%> -->
                 ......so on<br>   
             </div>   
@@ -230,14 +240,14 @@ body.active .wrapper .section{
              <ul>
                  <li>
                      <a href="#" class="active" id="home" onclick="showContent('home'); return false;">
-                         <span class="icon"><i class="fas fa-home"></i></span>
-                         <span class="item">Home</span>
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
                      </a>
                  </li>
                  <li>
                      <a href="#" id="stock" onclick="showContent('stock'); return false;">
                          <span class="icon"><i class="fas fa-desktop"></i></span>
-                         <span class="item">Check Stock Left</span>
+                         <span class="item">Add Stock</span>
                      </a>
                  </li>
                  <li>
@@ -255,7 +265,7 @@ body.active .wrapper .section{
                  <li>
                      <a href="#" id="dailyUsage" onclick="showContent('dailyUsage');">
                          <span class="icon"><i class="fas fa-database"></i></span>
-                         <span class="item">Update Daily Stock</span>
+                         <span class="item">Update Daily Usage</span>
                      </a>
                  </li>
                  <li>
@@ -312,7 +322,5 @@ body.active .wrapper .section{
         }
 	
     </script>
-
-    
 </body>
 </html>

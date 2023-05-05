@@ -64,7 +64,7 @@ app.post("/login",(req,res)=>{
     else if(Role =='city'){
         res.redirect(`/city/${username}`)
     }
-    else{
+    else if(Role =='district'){
         res.redirect(`/district/${username}`) 
     }
     // res.redirect("/logout");

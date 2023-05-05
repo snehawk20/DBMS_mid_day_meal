@@ -52,12 +52,27 @@ router.get('/:schoolID', async (req,res) =>{
         })
     });
 
+    const stockPr =  new Promise((resolve,reject) => {
+        const getStock = 
+            `
+             select * from stock_left where month = (extract (month from current_date)) and year = (extract (year from current_date));
+            `     
+        schoolUser.query(getStock,(err,results)=>{
+            if(err)
+                reject(err)
+            else
+                resolve(results)
+        // res.render("school.ejs",data=result.rows[0])
+        })
+    });
 
-    Promise.all([schoolPr,studentsPr,bmiPr])
+
+    Promise.all([schoolPr,studentsPr,bmiPr,stockPr])
     .then((results)=>{
-        console.log((results[2].rows).length,",", (results[0].rows).length,",", (results[1].rows).length)
+        console.log(results[3].rows)
+        console.log((results[2].rows).length,",", (results[0].rows).length,",", (results[1].rows).length,",", (results[3].rows).length)
         // const Sdata = [results[0].rows, results[1].rows]
-        res.render("school.ejs",{school: (results[0].rows)[0], students: (results[1].rows)[0], bmi: (results[2].rows)[0]})
+        res.render("school.ejs",{school: (results[0].rows)[0], students: (results[1].rows)[0], bmi: (results[2].rows)[0], stock: (results[3].rows)})
     })
     .catch(error=>{
         console.error(error);
@@ -65,14 +80,67 @@ router.get('/:schoolID', async (req,res) =>{
    
 });
 
-router.get('/:schoolID/updateDailyStock', (req,res) =>{
-    updateStock
-});
-
-router.get('/:schoolID/stockLeftData', (req,res) =>{
+router.get('/:schoolID/updateDailyUsage', (req,res) =>{
     
 });
 
+router.post('/:schoolID/addStock', async (req,res) =>{
+        //keep a local variable with connection and then make make query, instead of creating connection
+        const userId = req.session.userData[0];
+        const pwd = req.session.userData[1];
+    
+        const schoolUser = loginClient(userId,pwd);
+        schoolUser.connect();
+
+        // console.log(req.body)
+        const {item1,item2,item3,item4,item5,item6,item7} = req.body
+    
+        const stockLs = await new Promise((resolve,reject)=>{
+            const querystock = `update stock_left 
+            set item_quantity = case
+             when item_name = 'item1' then item_quantity + ${item1}
+             when item_name = 'item2' then item_quantity + ${item2}
+             when item_name = 'item3' then item_quantity + ${item3}
+             when item_name = 'item4' then item_quantity + ${item4}
+             when item_name = 'item5' then item_quantity + ${item5}
+             when item_name = 'item6' then item_quantity + ${item6}
+             when item_name = 'item7' then item_quantity + ${item7}
+             end
+             where item_name in ('item1','item2','item3','item4','item5','item6','item7') and 
+             month = (extract (month from current_date)) and year = (extract (year from current_date))
+
+            `
+            schoolUser.query(querystock,(err,results)=>{
+                if(err)
+                    reject(err)
+                else
+                    resolve(results)
+            });
+        });
+        res.redirect("addStock")
+});
+
+router.get('/:schoolID/addStock', (req,res)=>{
+    const userId = req.session.userData[0];
+    const pwd = req.session.userData[1]; 
+
+    const schoolUser = loginClient(userId,pwd);
+    schoolUser.connect();
+
+   
+    const querystock = `  
+        select * from stock_left where month = (extract(month from current_date)) and year = (extract(year from current_date));
+        `
+    schoolUser.query(querystock,(err,results)=>{
+            if(err)
+                throw (err)
+            else{
+                console.log(results.rows)
+                res.render("addStock.ejs",{schoolid: userId, stockData:results.rows})
+            } 
+     });
+    
+})
 router.post('/:schoolID/getReports', async (req,res) =>{
 
     //keep a local variable with connection and then make make query, instead of creating connection
@@ -103,10 +171,6 @@ router.get('/:schoolID/getReports', async (req,res) =>{
     // console.log("hee")
     console.log(req.body)
     // res.render("school.ejs",{results.rows})
-});
-
-router.get('/:schoolID/getBMIinfo', (req,res) =>{
-    
 });
 
 router.get('/:schoolID/StudentTable', (req,res) =>{
