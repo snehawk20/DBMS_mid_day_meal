@@ -149,15 +149,22 @@ body.active .wrapper .section{
          <div class="container">
 
             <div class="content" id="reports-content">
-                <h3>Monthly Report:</h3>
-                    <label >Month: &nbsp <%=m%> </label> <br>
-                    <label >Year: &nbsp <%=y%> </label> <br>
-					<div>
-						<h4> Total Cook Salary: </h4> <%=data.total_cook_salary%> <br>
-						<h4> Food Used Expense: </h4>  <%=data.food_used_expense%> <br>
-						<h4> Stock Left Expense: </h4> <%=data.stock_left_expense%> <br>
-						
-					 </div>
+                <h3>Updated Daily Usage Successfully!! </h3>
+                <h4>Corresponding Date's Update Entry: </h4><br>
+
+                <%for (let i=0; i< usageData.length; i++){%>
+                    <div>
+                    <b>
+                    <%=((usageData[i].date).toString().split(" "))[1]%>
+                    <%=((usageData[i].date).toString().split(" "))[2]%>
+                    <%=((usageData[i].date).toString().split(" "))[3]%> </b><br>
+
+                    
+                    <label for="text" style ="text-transform:capitalize;"><%=usageData[i].item_name%></label> 
+                    : &nbsp  <%=usageData[i].item_quantity%>
+                    </div>
+                <%}%>
+
                     <input type = "button" value="Back" onclick="back();"> 
     
         </div>
@@ -172,7 +179,7 @@ body.active .wrapper .section{
                  <li>
                      <a href="#" id="reports">
                          <span class="icon"><i class="fas fa-chart-line"></i></span>
-                         <span class="item">Reports</span>
+                         <span class="item">Add Stock</span>
                      </a>
                  </li>
             

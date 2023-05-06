@@ -24,10 +24,46 @@ body{
 	background: #f5f6fa;
 }
 
-.content {
+/* .content {
 		display: none;
         margin-top: 10px;
+} */
+
+.content {
+  display: None;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
 }
+
+h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+b {
+  font-weight: bold;
+  font-size: medium;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  color: #20165e;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 0;
+}
+
+valign {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#home-content {
+  display: block;
+}
+
 .wrapper .sidebar{
 	background: rgb(5, 68, 104);
 	position: fixed;
@@ -137,6 +173,21 @@ body.active .wrapper .section{
 	width: 100%;
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #aaaedf;
+}
 
     </style>
 </head>
@@ -174,47 +225,102 @@ body.active .wrapper .section{
          </div>
          <div class="container">
             <div class="content" id="home-content" style="display: block; ">
-                <h3>School Data:</h3>
-                <b>school_id: </b><%=school.school_id%><br>
-                <b>school_name: </b><%=school.school_name%><br>
-                <b>principal_name: </b><%=school.principal_name%><br>
-                ......so on<br>
+                <h3 style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder; font-size: 25px;">School Data</h3><br>
+                <div style="text-transform:capitalize"><b>&emsp;school id : </b> <valign><%=school.school_id%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;school name : </b> <valign><%=school.school_name%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;Principal name : </b> <valign><%=school.principal_name%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;contact number : </b> <valign><%=school.contact_number%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;email: </b> <valign><a href = "mailto: <%=school.email%>"> <%=school.email%> </a></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;school type : </b> <valign><%=school.school_type%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;city id : </b> <valign><%=school.city_id%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;district id : </b> <valign><%=school.district_id%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;primary status : </b> <valign><%=school.primary_strength%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;secondary status : </b> <valign><%=school.secondary_strength%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;mdm enrollment : </b> <valign><%=school.mdm_enrollment%></valign> </div>
             </div>
-            <div class="content" id="stock-content"></div>     
+            <div class="content" id="stock-content">
+                <h3>Add Stock For Items:</h3>
+                <form method="post" action="/school/<%= school.school_id%>/addStock"> 
+                    <%for (let i=0; i< stock.length; i++){%>
+                    <label for="text" style ="text-transform:capitalize;"><%=stock[i].item_name%></label>:
+                    <input type="text" name="<%=stock[i].item_name%>" value="0" /> &nbsp Current: <%=stock[i].item_quantity%><br>
+                    <%}%>
+                    <input type="submit" value="Add Stock"/>
+                </form>
+            </div>     
             <div class="content" id="students-content">
-                <h3>Students Data:</h3>
-                <%=students%>
-                ......so on<br>
+                <h3 >Students Data:</h3>
+                <table>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Standard</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>MDM Enrollment</th>
+                    </tr>
+                <% for(let i= 0; i < students.length; i++){%>
+                <tr>
+                    <td><%=students[i].student_id%></td>
+                    <td><%=students[i].student_name%></td>
+                    <td><%=students[i].standard%></td>
+                    <td><%=students[i].height%></td>
+                    <td><%=students[i].weight%></td>
+                    <td><%=students[i].mdm_enrollment%></td>
+                </tr>
+                <%}%>
+            </table>
+
             </div> 
             <div class="content" id="bmi-content">
                 <h3>Students BMI:</h3>
-                <%=bmi%>
-                ......so on<br>   
+                <table>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>BMI</th>
+                        <th>Category</th>
+                    </tr>
+                <% for(let i= 0; i < bmi.length; i++){%>
+                <tr>
+                    <td><%=bmi[i].student_id%></td>
+                    <td><%=bmi[i].student_name%></td>
+                    <td><%= parseFloat(bmi[i].bmi).toFixed(2)%></td>
+                    <td><%=bmi[i].category%></td>
+                </tr>
+                <%}%>
+            </table>
             </div>
             
             <div class="content" id="dailyUsage-content">
-                <h3>dailyUsage-content:</h3>
-                <!-- <%=bmi%> -->
-                ......so on<br>   
+                <h3>Daily Stock Update:</h3>
+                <form method="post" action="/school/<%= school.school_id%>/updateUsage"> 
+                    <%for (let i=0; i< stock.length; i++){%>
+                    <label for="text" style ="text-transform:capitalize;"><%=stock[i].item_name%></label>:
+                    <input type="number" name="<%=stock[i].item_name%>" placeholder="<%=stock[i].item_quantity%>" min=0 max=<%=stock[i].item_quantity%> required/><br>
+                    <%}%>
+                    <!-- <input type="submit" name="add" value="Add"/> -->
+                    <input type="submit" name="update" value="Update"/>
+                </form>
+
+                <br>   
             </div>   
             <div class="content" id="reports-content">
                 <h3>Monthly Report:</h3>
                 <form method="post" action="/school/<%= school.school_id%>/getReports" >
                     <label >Enter Month in number:</label>
-                    <input tye="number" name="month"  placeholder="Eg:5 for May" required /><br>
+                    <input type="text" name="month"  placeholder="Eg:5 for May" required /><br>
                     <label >Enter Year:</label>
-                    <input tye="number" name="year"  placeholder="Eg:2023"/><br>
+                    <input type="text" name="year"  placeholder="Eg:2023"/><br>
                     <input type="submit" value="Get Report" required/><br>
-                    <input type = "button" value="Back" onclick="">
+                    <!-- <input type = "button" value="Back" onclick=""> -->
 
                 </form>
-                <!-- <%=bmi%> -->
-                ......so on<br>   
+               <br>   
             </div>   
             <div class="content" id="manage-content">
                 <h3>Manage Data:</h3>
-                <!-- <%=bmi%> -->
-                ......so on<br>   
+               <br>   
             </div>   
 
 
@@ -230,14 +336,14 @@ body.active .wrapper .section{
              <ul>
                  <li>
                      <a href="#" class="active" id="home" onclick="showContent('home'); return false;">
-                         <span class="icon"><i class="fas fa-home"></i></span>
-                         <span class="item">Home</span>
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
                      </a>
                  </li>
                  <li>
                      <a href="#" id="stock" onclick="showContent('stock'); return false;">
                          <span class="icon"><i class="fas fa-desktop"></i></span>
-                         <span class="item">Check Stock Left</span>
+                         <span class="item">Add Stock</span>
                      </a>
                  </li>
                  <li>
@@ -255,7 +361,7 @@ body.active .wrapper .section{
                  <li>
                      <a href="#" id="dailyUsage" onclick="showContent('dailyUsage');">
                          <span class="icon"><i class="fas fa-database"></i></span>
-                         <span class="item">Update Daily Stock</span>
+                         <span class="item">Update Daily Usage</span>
                      </a>
                  </li>
                  <li>
@@ -312,7 +418,5 @@ body.active .wrapper .section{
         }
 	
     </script>
-
-    
 </body>
 </html>

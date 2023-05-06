@@ -149,15 +149,14 @@ body.active .wrapper .section{
          <div class="container">
 
             <div class="content" id="reports-content">
-                <h3>Monthly Report:</h3>
-                    <label >Month: &nbsp <%=m%> </label> <br>
-                    <label >Year: &nbsp <%=y%> </label> <br>
-					<div>
-						<h4> Total Cook Salary: </h4> <%=data.total_cook_salary%> <br>
-						<h4> Food Used Expense: </h4>  <%=data.food_used_expense%> <br>
-						<h4> Stock Left Expense: </h4> <%=data.stock_left_expense%> <br>
-						
-					 </div>
+                <h3>Added Stock Successfully!! </h3>
+                <%for (let i=0; i< stockData.length; i++){%>
+                    <div>
+                    <label for="text" style ="text-transform:capitalize;"><%=stockData[i].item_name%></label> 
+                    : &nbsp  <%=stockData[i].item_quantity%>
+                    </div>
+                <%}%>
+
                     <input type = "button" value="Back" onclick="back();"> 
     
         </div>
@@ -172,7 +171,7 @@ body.active .wrapper .section{
                  <li>
                      <a href="#" id="reports">
                          <span class="icon"><i class="fas fa-chart-line"></i></span>
-                         <span class="item">Reports</span>
+                         <span class="item">Add Stock</span>
                      </a>
                  </li>
             
