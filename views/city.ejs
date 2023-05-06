@@ -4,11 +4,372 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- <link  rel="stylesheet" type="text/css"  href="school.css" /> -->
+    <link rel="shortcut icon" href="#">
     <title>Mid Day Meal</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+	list-style: none;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body{
+	background: #f5f6fa;
+}
+
+/* .content {
+		display: none;
+        margin-top: 10px;
+} */
+
+.content {
+  display: None;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
+}
+
+h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+b {
+  font-weight: bold;
+  font-size: medium;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #20165e;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 0;
+}
+
+valign {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#home-content {
+  display: block;
+}
+
+
+.wrapper .sidebar{
+	background: rgb(5, 68, 104);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100%;
+	padding: 20px 0;
+	transition: all 0.5s ease;
+}
+
+.wrapper .sidebar .profile{
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.wrapper .sidebar .profile img{
+	display: block;
+	width: 200px;
+	height: 200px;
+    border-radius: 50%;
+	margin: 0 auto;
+}
+
+.wrapper .sidebar .profile h3{
+	color: #ffffff;
+	margin: 10px 0 5px;
+}
+
+.wrapper .sidebar .profile p{
+	color: rgb(206, 240, 253);
+	font-size: 18px;
+}
+
+.wrapper .sidebar ul li a{
+	display: block;
+	padding: 13px 30px;
+	border-bottom: 1px solid #10558d;
+	color: rgb(241, 237, 237);
+	font-size: 18px;
+	position: relative;
+}
+
+.wrapper .sidebar ul li a .icon{
+	color: #dee4ec;
+	width: 30px;
+	display: inline-block;
+}
+
+ 
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active{
+	color: #0c7db1;
+
+	background:white;
+    border-right: 2px solid rgb(5, 68, 104);
+}
+
+.wrapper .sidebar ul li a:hover .icon,
+.wrapper .sidebar ul li a.active .icon{
+	color: #0c7db1;
+}
+
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+	display: block;
+}
+
+.wrapper .section{
+	width: calc(100% - 280px);
+	margin-left: 280px;
+	transition: all 0.5s ease;
+}
+
+.wrapper .section .top_navbar{
+	background: rgb(7, 105, 185);
+	height: 70px;
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+ 
+}
+
+.wrapper .section .top_navbar .main_content a{
+	font-size: 28px;
+	color: #f4fbff;
+}
+
+.wrapper .section .top_navbar .main_content a:hover{
+	color: #a2ecff;
+}
+
+ .wrapper .section .container{
+	margin: 30px;
+	background: #fff;
+	padding: 50px;
+	line-height: 28px;
+}
+
+body.active .wrapper .sidebar{
+	left: -225px;
+}
+
+body.active .wrapper .section{
+	margin-left: 0;
+	width: 100%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #aaaedf;
+}
+
+
+    </style>
 </head>
 <body>
+    <!-- <div class="wrapper"> -->
+        <!--Top menu -->
+        <!-- <div class="sidebar"> -->
+           <!-- profile image & text -->
+            <!-- menu item -->
+            <!-- <img style="width: 200px;padding-left: 5px;" src="/schoolLogo.jpg"></img>
+            <button class="dropDown"><a href = "/updateDailyStock">Update Daily Data</a></button><br>
+            <button class="dropDown"><a href = "/stockLeftData">Check Stock Left</a></button><br>
+            <button class="dropDown"><a href = "/getReport">Show Report</a></button><br>
+            <button class="dropDown"><a href = "/getBMIinfo">get BMI information</a></button><br>
+            <button class="dropDown"><a href = "/StudentTable">Add and manage student table</a></button><br>
+            <button type = "button" class="col-sm-1 btn btn-primary btn-lg options" onclick="logout()">Logout</button>
+        
+        </div>
+    </div>
+    <div>
     Helloo City
+    Yukta is cute :)
     <hr><br>
+   
+
+
+    </div> -->
+    <div class="wrapper">
+        <div class="section">
+         <div class="top_navbar">
+             <div class="main_content">
+                 <a href="#">
+                     <i class="fas fa-bars"> Dashboard</i>
+                 </a>
+             </div>
+         </div>
+         <div class="container">
+
+            <div class="content" id="home-content" style="display: block;">
+                <h3>Your Profile:</h3>
+                <p><b>City ID:&emsp;</b> <valign><%=city_committee.city_id%></valign></p>
+                <p><b>City:</b>&emsp; <valign><%=city_committee.city_name%></valign></p>
+                <p><b>Officer Name:&emsp;</b> <valign><%=city_committee.officer_name%></valign></p>
+            </div>
+              
+
+            <div class="content" id="school-content">
+                <h3> Schools </h3>
+                <table border="1" id="tab">
+                    <thead>
+                      <tr><b>
+                        <th>School ID</th>
+                        <th>School Name</th>
+                        
+                      </tr></b>
+                      <%for (let i = 0; i < schools.length; i++){%>
+                            <tr>
+                                <td><%= schools[i].school_id %></td>
+                                <td><%= schools[i].school_name %></td>
+                            </tr>
+                        <%}%>
+                    </thead>
+                </table>
+            </div>
+            <div class="content" id="items-content">
+                <h3>Items and Cost</h3>
+                <table border="1" id="tab">
+                    <thead>
+                      <tr><b>
+                        <th>Item Name</th>
+                        <th>Item Prices</th>
+                        
+                      </tr></b>
+                      <%for (let i = 0; i < items.length; i++){%>
+                            <tr>
+                                <td><%= items[i].item_name %></td>
+                                <td><%= items[i].price %></td>
+                            </tr>
+                        <%}%>
+                    </thead>
+                </table>
+            </div> 
+
+            <div class="content" id="grieve-content">
+                <h3>Student Grievances</h3>
+                <table border="1" id="tab">
+                    <thead>
+                      <tr><b>
+                        <th>Complaint ID</th>
+                        <th>School ID</th>
+                        <th>Description</th>
+                        
+                      </tr></b>
+                      <%for (let i = 0; i < grieve.length; i++){%>
+                            <tr>
+                                <td><%= grieve[i].complaint_number %></td>
+                                <td><%= grieve[i].school_id %></td>
+                                <td><%= grieve[i].complaint_details %></td>
+                            </tr>
+                        <%}%>
+                    </thead>
+                </table>
+            </div>
+
+    
+        </div>
+     </div>
+         <div class="sidebar">
+             <div class="profile">
+                <img src="/cityLogo.jpg" alt="profile_picture">
+                 <h3 style="text-transform:uppercase"><%= city_committee.city_name%></h3>
+                 <p>City ID: <%= city_committee.city_id%></p>
+             </div>
+             <ul>
+                 <li>
+                     <a href="#" class="active" id="home" onclick="showContent('home'); return false;">
+                         <span class="icon"><i class="fas fa-home"></i></span>
+                         <span class="item">Home</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="school" onclick="showContent('school'); return false;">
+                         <span class="icon"><i class="fa fa-building"></i></span>
+                         <span class="item">School List</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="items" onclick="showContent('items'); return false;">
+                         <span class="icon"><i class="fa fa-list-ol"></i></span>
+                         <span class="item">Item List</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="grieve" onclick="showContent('grieve'); return false;">
+                         <span class="icon"><i class="fa fa-envelope-open"></i></span>
+                         <span class="item">Grievances</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/logout">
+                         <span class="icon"><i class="fas fa-power-off"></i></span>
+                         <span class="item">Logout</span>
+                     </a>
+                 </li>
+             </ul>
+         </div>
+         
+     </div>
+  
+
+    <script>
+        function logout() {
+			window.location.href = '/logout'};
+        
+        
+        var main_content = document.querySelector(".main_content");
+	    main_content.addEventListener("click", ()=>{
+		document.querySelector("body").classList.toggle("active");
+        })
+
+        
+        var lastClick = 'home';
+        function showContent(anchorId){
+            console.log("called")
+            const selectedContenthiv = document.getElementById(anchorId+ '-content');
+            var content = selectedContenthiv.style.display;
+
+            var contenthivs = document.getElementsByClassName('content');
+                    for (var i = 0; i < contenthivs.length; i++) {
+                        contenthivs[i].style.display = 'none';
+                    }
+
+            if(lastClick == anchorId && content == 'block'){
+                selectedContenthiv.style.display = 'none';}
+            else
+                selectedContenthiv.style.display = 'block';
+            lastClick = anchorId;
+        }
+	
+    </script>
+
     
 </body>
 </html>
