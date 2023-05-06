@@ -257,48 +257,47 @@ tr:nth-child(even) {
                         <tr>
                             <td><%=grievancesPr[i].school_id%></td>
                             <td><%=grievancesPr[i].complaint_number%></td>
-                            <td><%=grievancesPr[i].date%></td>
-                            <td><%=grievancesPr[i].grievance_category%></td>
-                            <td><%=grievancesPr[i].grievance_status%></td>
-                            <td><%=grievancesPr[i].actions_taken</td>
+                            <td><%=grievancesPr[i].date.toString().split(" ").slice(1,4).join(" ")%></td>
+                            <td><%=grievancesPr[i].category%></td>
+                            <td><%=grievancesPr[i].complaint_details%></td>
+                            <td><%=grievancesPr[i].status%></td>
+                            <td><%=grievancesPr[i].actions_taken%></td>
                         </tr>
                     <%}%>
                 </table>    
             </div>   
-            <!-- <div class="content" id="menu-content">
+            <div class="content" id="menu-content">
                 <h3>Menu</h3><br>
+                <table>
+                    <tr>
+                        <th>Day</th>
+                        <th>Menu</th>
+                    </tr>
+                    <%for (let i = 0 ; i < menuPr.length ; i++){%>
+                        <tr>
+                            <td><%=menuPr[i].day%></td>
+                            <td><%=menuPr[i].items%></td>
+                        </tr>
+                    <%}%>
+                </table>
             </div>
-             -->
-
-            <!-- <div class="content" id="reports-content">
-                <h3>Monthly Report:</h3>
-                <form method="post" action="/school/<%= school.school_id%>/getReports" >
-                    <label >Enter Month in number:</label>
-                    <input tye="number" name="month"  placeholder="Eg:5 for May" required /><br>
-                    <label >Enter Year:</label>
-                    <input tye="number" name="year"  placeholder="Eg:2023"/><br>
-                    <input type="submit" value="Get Report" required/><br>
-                    <input type = "button" value="Back" onclick="">
-
-                </form>  -->
-                <!-- <%=bmi%> -->
-                <!-- ......so on<br>   
-            </div>   
-            <div class="content" id="manage-content">
-                <h3>Manage Data:</h3> -->
-                <!-- <%=bmi%> -->
-                <!-- ......so on<br>   
-            </div>    -->
-
-
-
-
+            <div class="content" id = "monthlySchoolReports-content">
+                <h3>Schools Monthly Report</h3>
+                <form method="post" action="/district/<%=districtPr.district_id%>/monthlySchoolReport" >
+                    <label>Enter Month<small>(in number)</small>:</label>
+                    <input type = "number" name = "month" placeholder="Eg:5 for May" required /><br>
+                    <label>Enter Year:</label>
+                    <input type = "number" name = "year" placeholder="Eg:2023" required /><br>
+                    <input type="submit" value="Get Report"/><br>
+                </form>
+            </div>
+             
     
         </div>
      </div>
          <div class="sidebar">
              <div class="profile">
-                 <img src="/schoolLogo.jpg" alt="profile_picture">
+                 <img src="/districtlogo.png" alt="profile_picture">
                  <h3 style="text-transform:uppercase"><%= districtPr.district_name%></h3>
                  <p>District ID: <%= districtPr.district_id%></p>
              </div>
@@ -311,35 +310,35 @@ tr:nth-child(even) {
                  </li>
                  <li>
                      <a href="#" id="city" onclick="showContent('city'); return false;">
-                         <span class="icon"><i class="fas fa-desktop"></i></span>
+                         <span class="icon"><i class="fa fa-city"></i></span>
                          <span class="item">Cities Info</span>
                      </a>
                  </li>
                  <li>
                      <a href="#" id="extrabudget" onclick="showContent('extrabudget');">
-                         <span class="icon"><i class="fas fa-user-friends"></i></span>
-                         <span class="item">Cities Extra Budget</span>
+                         <span class="icon"><i class="fas fa-rupee-sign"></i></span>
+                         <span class="item">Extra Budget</span>
                      </a>
                  </li>
                  <li>
                     <a href="#" id="grievances" onclick="showContent('grievances');">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">Unresolved Grievances</span>
+                        <span class="icon"><i class="fa fa-box-open"></i></span>
+                        <span class="item">Grievances</span>
                     </a>
                 </li>
-                 <!-- <li>
-                     <a href="#" id="bmi" onclick="showContent('bmi');">
-                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                         <span class="item">Get BMI Info</span>
+                 <li>
+                     <a href="#" id="menu" onclick="showContent('menu');">
+                         <span class="icon"><i class="fas fa-apple-alt"></i></span>
+                         <span class="item">Get Menu</span>
                      </a>
                  </li>
                  <li>
-                     <a href="#" id="dailyUsage" onclick="showContent('dailyUsage');">
+                     <a href="#" id="monthlySchoolReports" onclick="showContent('monthlySchoolReports');">
                          <span class="icon"><i class="fas fa-database"></i></span>
-                         <span class="item">Update Daily Stock</span>
+                         <span class="item">Monthly School Reports</span>
                      </a>
                  </li>
-                 <li>
+                 <!-- <li>
                      <a href="#" id="reports" onclick="showContent('reports');">
                          <span class="icon"><i class="fas fa-chart-line"></i></span>
                          <span class="item">Reports</span>

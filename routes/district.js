@@ -67,25 +67,44 @@ router.get('/:districtID', async (req,res) =>{
         })
     });
 
-   
-    // Promise.all([districtPr , menuPr , extraBudgetPr , cityPr , grievancesPr])
-    // .then((results)=>{
-    //     // console.log((results[3].rows).length)
-    //     res.render("district.ejs",{districtPr : (results[0].rows)[0], menuPr:(results[1].rows), extraBudgetPr: (results[2].rows)  , cityPr: (results[3].rows)[0] , grievancesPr: (results[4].rows)[0]})
-    // })
-    // .catch(error=>{
-    //     console.error(error);
-    // });
 
        
     Promise.all([districtPr , menuPr , extraBudgetPr , cityPr , grievancesPr])
     .then((results)=>{
         // console.log((results[3].rows).length)
-        res.render("district.ejs",{districtPr : (results[0].rows)[0], extraBudgetPr: (results[2].rows)  , cityPr: (results[3].rows), grievancesPr: (results[4].rows)})
+        res.render("district.ejs",{districtPr : (results[0].rows)[0], menuPr : results[1].rows, extraBudgetPr: (results[2].rows)  , cityPr: (results[3].rows), grievancesPr: (results[4].rows)})
     })
     .catch(error=>{
         console.error(error);
     });
 });
+
+
+router.post('/:districtID/monthlySchoolReport' , async(req , res) => {
+    const userId = req.session.userData[0];
+    const pwd = req.session.userData[1];
+    const districtID = Number(userId.replace(/^district_officer/ , ''))
+
+    const schoolUser = loginClient(userId,pwd);
+    schoolUser.connect();
+
+    const month = req.body.month
+    const year = req.body.year    
+    const report_detailsPr = await new Promise((resolve,reject)=>{
+        const reportquery = `select * from get_schools_data(${districtID},${month},${year})`
+        schoolUser.query(reportquery,(err,results)=>{
+            if(err)
+                reject(err)
+            else
+                resolve(results)
+        });
+    });
+    res.render("monthlySchoolReport.ejs" , {monthPr : month, yearPr: year, report_details : report_detailsPr.rows , district_id : districtID})
+});
+
+router.get('/:districtID/monthlySchoolReport' , (req,res) => {
+    console.log("Published Report")
+})
+
 
 module.exports = router;
