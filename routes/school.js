@@ -69,10 +69,10 @@ router.get('/:schoolID', async (req,res) =>{
 
     Promise.all([schoolPr,studentsPr,bmiPr,stockPr])
     .then((results)=>{
-        console.log(results[3].rows)
-        console.log((results[2].rows).length,",", (results[0].rows).length,",", (results[1].rows).length,",", (results[3].rows).length)
+        // console.log(results[3].rows)
+        // console.log((results[2].rows),",", (results[0].rows),",", (results[1].rows),",", (results[3].rows))
         // const Sdata = [results[0].rows, results[1].rows]
-        res.render("school.ejs",{school: (results[0].rows)[0], students: (results[1].rows)[0], bmi: (results[2].rows)[0], stock: (results[3].rows)})
+        res.render("school.ejs",{school: (results[0].rows)[0], students: (results[1].rows), bmi: (results[2].rows), stock: (results[3].rows)})
     })
     .catch(error=>{
         console.error(error);
@@ -80,9 +80,6 @@ router.get('/:schoolID', async (req,res) =>{
    
 });
 
-router.get('/:schoolID/updateDailyUsage', (req,res) =>{
-    
-});
 
 router.post('/:schoolID/addStock', async (req,res) =>{
         //keep a local variable with connection and then make make query, instead of creating connection
@@ -135,12 +132,86 @@ router.get('/:schoolID/addStock', (req,res)=>{
             if(err)
                 throw (err)
             else{
-                console.log(results.rows)
+                // console.log(results.rows)
                 res.render("addStock.ejs",{schoolid: userId, stockData:results.rows})
             } 
      });
     
 })
+
+
+router.post('/:schoolID/updateUsage', async (req,res) =>{
+    const userId = req.session.userData[0];
+    const pwd = req.session.userData[1];
+
+    const schoolUser = loginClient(userId,pwd);
+    schoolUser.connect();
+
+    const {item1,item2,item3,item4,item5,item6,item7} = req.body
+    // console.log(req.body)
+
+    const usageLs = await new Promise((resolve,reject)=>{
+          const queryUsage = `
+            insert into daily_stock_usage (school_id,item_name,date,item_quantity)
+            values 
+            (${userId},'item1', (select now()::date),cast(${item1} as integer)),
+            (${userId},'item2', (select now()::date),cast(${item2} as integer)),
+            (${userId},'item3', (select now()::date),cast(${item3} as integer)),
+            (${userId},'item4', (select now()::date),cast(${item4} as integer)),
+            (${userId},'item5', (select now()::date),cast(${item5} as integer)),
+            (${userId},'item6', (select now()::date),cast(${item6} as integer)),
+            (${userId},'item7', (select now()::date),cast(${item7} as integer))
+            
+            on conflict on constraint daily_stock_usage_pkey
+            do
+                update set item_quantity = case
+                when (daily_stock_usage.item_name = 'item1' )then ${item1}
+                when (daily_stock_usage.item_name = 'item2' )then ${item2}
+                when (daily_stock_usage.item_name = 'item3' )then ${item3}
+                when (daily_stock_usage.item_name = 'item4' )then ${item4}
+                when (daily_stock_usage.item_name = 'item5' )then ${item5}
+                when (daily_stock_usage.item_name = 'item6' )then ${item6}
+                when (daily_stock_usage.item_name = 'item7' )then ${item7}
+                end
+                where daily_stock_usage.item_name in ('item1','item2','item3','item4','item5','item6','item7') and 
+                daily_stock_usage.date = (select now()::date) and daily_stock_usage.school_id = ${userId}  
+                
+        `
+        schoolUser.query(queryUsage,(err,results)=>{
+            if(err)
+                reject(err)
+            else
+                resolve(err)
+        });
+    });
+
+    res.redirect("updateUsage");
+
+});
+
+router.get('/:schoolID/updateUsage', (req,res) =>{
+   
+    const userId = req.session.userData[0];
+    const pwd = req.session.userData[1]; 
+
+    const schoolUser = loginClient(userId,pwd);
+    schoolUser.connect();
+
+   
+    const queryUsage = `  
+        select * from daily_stock_usage where extract (month from date) = extract(month from current_date);
+        `
+    schoolUser.query(queryUsage,(err,results)=>{
+            if(err)
+                throw (err)
+            else{
+                // console.log(results.rows)
+                res.render("updateUsage.ejs",{schoolid: userId, usageData:results.rows})
+            } 
+     });
+});
+
+
 router.post('/:schoolID/getReports', async (req,res) =>{
 
     //keep a local variable with connection and then make make query, instead of creating connection
@@ -169,7 +240,7 @@ router.post('/:schoolID/getReports', async (req,res) =>{
 
 router.get('/:schoolID/getReports', async (req,res) =>{
     // console.log("hee")
-    console.log(req.body)
+    // console.log(req.body)
     // res.render("school.ejs",{results.rows})
 });
 
