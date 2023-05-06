@@ -24,10 +24,46 @@ body{
 	background: #f5f6fa;
 }
 
-.content {
+/* .content {
 		display: none;
         margin-top: 10px;
+} */
+
+.content {
+  display: None;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
 }
+
+h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+b {
+  font-weight: bold;
+  font-size: medium;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  color: #20165e;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 0;
+}
+
+valign {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#home-content {
+  display: block;
+}
+
 .wrapper .sidebar{
 	background: rgb(5, 68, 104);
 	position: fixed;
@@ -150,7 +186,7 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #aaaedf;
 }
 
 
@@ -191,13 +227,13 @@ tr:nth-child(even) {
          <div class="container">
             <div class="content" id="home-content" style="display: block; ">
                 <h3>Profile</h3><br>
-                <b>District ID: </b><%=districtPr.district_id%><br>
-                <b>District Name: </b><%=districtPr.district_name%><br>
-                <b>Officer Id: </b><%=districtPr.officer_id%><br>
-                <b>Officer Name: </b><%=districtPr.officer_name%><br>
-                <b>Schools Registered: </b><%=districtPr.schools_registered%><br>
-                <b>MDM Budget Allocated: </b><%=districtPr.mdm_budget%><br>
-                <b>Budget Used: </b><%=districtPr.total_budget%><br>
+                <b>&emsp;District ID: &emsp;</b> <valign><%=districtPr.district_id%></valign><br>
+                <b>&emsp;District Name: &emsp;</b> <valign><%=districtPr.district_name%></valign><br>
+                <b>&emsp;Officer Id: &emsp;</b> <valign><%=districtPr.officer_id%></valign><br>
+                <b>&emsp;Officer Name: &emsp;</b> <valign><%=districtPr.officer_name%></valign><br>
+                <b>&emsp;Schools Registered: &emsp;</b> <valign><%=districtPr.schools_registered%></valign><br>
+                <b>&emsp;MDM Budget Allocated: &emsp;</b> <valign><%=districtPr.mdm_budget%></valign><br>
+                <b>&emsp;Budget Used: &emsp;</b> <valign><%=districtPr.total_budget%></valign><br>
             </div>
             <div class="content" id = "city-content">
                 <h3>Cities information</h3><br>
