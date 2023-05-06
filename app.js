@@ -53,19 +53,57 @@ app.get("/login",(req,res)=>{
     res.render("login.ejs");
 });
 
+// app.post("/login",(req,res)=>{
+//     // console.log(req.body);
+//     const {username, password, Role} = req.body
+//     // console.log(username,password,Role)
+//     req.session.userData = [username,password]
+//     if(Role =='school'){
+//         res.redirect(`/school/${username}`);
+//     }
+//     else if(Role =='city'){
+//         res.redirect(`/city/${username}`)
+//     }
+//     else if(Role =='district'){
+//         res.redirect(`/district/${username}`) 
+//     }
+//     // res.redirect("/logout");
+// });
+
 app.post("/login",(req,res)=>{
     // console.log(req.body);
     const {username, password, Role} = req.body
     // console.log(username,password,Role)
     req.session.userData = [username,password]
     if(Role =='school'){
-        res.redirect(`/school/${username}`);
+        if (username.replace(/[0-9]/g , '') == 'school_manager')
+        {
+            res.redirect(`/school/${username}`);
+        }
+        else
+        {
+            console.log("Invalid Username");
+        }
     }
     else if(Role =='city'){
-        res.redirect(`/city/${username}`)
+        if (username.replace(/[0-9]/g , '') == 'city_officer')
+        {
+            res.redirect(`/city/${username}`)
+        }
+        else
+        {
+            console.log("Invalid Username");
+        }
     }
-    else if(Role =='district'){
-        res.redirect(`/district/${username}`) 
+    else{
+        if (username.replace(/[0-9]/g , '') == 'district_officer')
+        {
+            res.redirect(`/district/${username}`) 
+        }
+        else
+        {
+            console.log("Invalid Username");
+        }
     }
     // res.redirect("/logout");
 });
