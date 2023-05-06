@@ -157,32 +157,70 @@ tr:nth-child(even) {
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
     text-align: justify;
-
 }
 
-    </style>
+.btnClass{
+    margin: 2px;
+  background-color: #19799c;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.flex-container {
+    margin: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color:rgb(194, 208, 237);
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  margin: 10px;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.header{
+    text-align: center;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+input[type=text], input[type=number], select {
+  width: 80%;
+  font-size: 20px;
+  padding: 10px 15px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #3b5fb2;
+  color: white;
+  padding: 14px 20px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+input[type=submit]:hover {
+  background-color: #29429a;
+}
+
+</style>
 </head>
 <body>
-    <!-- <div class="wrapper"> -->
-        <!--Top menu -->
-        <!-- <div class="sidebar"> -->
-           <!-- profile image & text -->
-            <!-- menu item -->
-            <!-- <img style="width: 200px;padding-left: 5px;" src="/schoolLogo.jpg"></img>
-            <button class="dropDown"><a href = "/updateDailyStock">Update Daily Data</a></button><br>
-            <button class="dropDown"><a href = "/stockLeftData">Check Stock Left</a></button><br>
-            <button class="dropDown"><a href = "/getReport">Show Report</a></button><br>
-            <button class="dropDown"><a href = "/getBMIinfo">get BMI information</a></button><br>
-            <button class="dropDown"><a href = "/StudentTable">Add and manage student table</a></button><br>
-            <button type = "button" class="col-sm-1 btn btn-primary btn-lg options" onclick="logout()">Logout</button>
-        
-        </div>
-    </div>
-    <div>
-    Helloo Schooll
-    <hr><br>
-   
-
 
     </div> -->
     <div class="wrapper">
@@ -210,14 +248,21 @@ tr:nth-child(even) {
                 <div style="text-transform:capitalize"><b>mdm enrollment : </b><%=school.mdm_enrollment%> </div>
             </div>
             <div class="content" id="stock-content">
-                <h3>Add Stock For Items:</h3>
+                <div class="flex-container">
+                <h3 class="header">Add Stock For Items:</h3>
+                <div>
                 <form method="post" action="/school/<%= school.school_id%>/addStock"> 
+                    
                     <%for (let i=0; i< stock.length; i++){%>
                     <label for="text" style ="text-transform:capitalize;"><%=stock[i].item_name%></label>:
                     <input type="text" name="<%=stock[i].item_name%>" value="0" /> &nbsp Current: <%=stock[i].item_quantity%><br>
                     <%}%>
+                    <br>
                     <input type="submit" value="Add Stock"/>
+            
                 </form>
+            </div>
+            </div>
             </div>     
             <div class="content" id="students-content">
                 <h3 >Students Data:</h3>
@@ -264,34 +309,47 @@ tr:nth-child(even) {
             </div>
             
             <div class="content" id="dailyUsage-content">
-                <h3>Daily Stock Update:</h3>
+                <div class="flex-container">
+                <h3 class="header">Daily Stock Update:</h3>
+                <div>
                 <form method="post" action="/school/<%= school.school_id%>/updateUsage"> 
                     <%for (let i=0; i< stock.length; i++){%>
+                    <div>
                     <label for="text" style ="text-transform:capitalize;"><%=stock[i].item_name%></label>:
                     <input type="number" name="<%=stock[i].item_name%>" placeholder="<%=stock[i].item_quantity%>" min=0 max=<%=stock[i].item_quantity%> required/><br>
+                </div>
                     <%}%>
-                    <!-- <input type="submit" name="add" value="Add"/> -->
+
+                    <br>
                     <input type="submit" name="update" value="Update"/>
                 </form>
-
-                <br>   
+            </div>
+                </div>
             </div>   
-            <div class="content" id="reports-content">
-                <h3>Monthly Report:</h3>
+            <div class="content " id="reports-content">
+                <div class="flex-container">
+                <h3 class="header">Monthly Report:</h3>
+                <div>
                 <form method="post" action="/school/<%= school.school_id%>/getReports" >
                     <label >Enter Month in number:</label>
                     <input type="text" name="month"  placeholder="Eg:5 for May" required /><br>
                     <label >Enter Year:</label>
                     <input type="text" name="year"  placeholder="Eg:2023"/><br>
+                    <br>
                     <input type="submit" value="Get Report" required/><br>
                     <!-- <input type = "button" value="Back" onclick=""> -->
 
                 </form>
-               <br>   
+                </div>
+                </div> 
             </div>   
             <div class="content" id="manage-content">
-                <h3>Manage Data:</h3>
-               <br>   
+                <h3 style="text-align: center;">Manage Data:</h3><br>
+               <div style="text-align: center;">
+                <button class="btnClass">Add Data</button>
+                <button class="btnClass">Delete Data</button>
+                <button class="btnClass">Update Data</button>
+            </div>
             </div>   
 
 
