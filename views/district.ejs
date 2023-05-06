@@ -4,10 +4,396 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- <link  rel="stylesheet" type="text/css"  href="school.css" /> -->
+    <link rel="shortcut icon" href="#">
     <title>Mid Day Meal</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+	list-style: none;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body{
+	background: #f5f6fa;
+}
+
+.content {
+		display: none;
+        margin-top: 10px;
+}
+.wrapper .sidebar{
+	background: rgb(5, 68, 104);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100%;
+	padding: 20px 0;
+	transition: all 0.5s ease;
+}
+
+.wrapper .sidebar .profile{
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.wrapper .sidebar .profile img{
+	display: block;
+	width: 200px;
+	height: 200px;
+    border-radius: 50%;
+	margin: 0 auto;
+}
+
+.wrapper .sidebar .profile h3{
+	color: #ffffff;
+	margin: 10px 0 5px;
+}
+
+.wrapper .sidebar .profile p{
+	color: rgb(206, 240, 253);
+	font-size: 18px;
+}
+
+.wrapper .sidebar ul li a{
+	display: block;
+	padding: 13px 30px;
+	border-bottom: 1px solid #10558d;
+	color: rgb(241, 237, 237);
+	font-size: 18px;
+	position: relative;
+}
+
+.wrapper .sidebar ul li a .icon{
+	color: #dee4ec;
+	width: 30px;
+	display: inline-block;
+}
+
+ 
+
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active{
+	color: #0c7db1;
+
+	background:white;
+    border-right: 2px solid rgb(5, 68, 104);
+}
+
+.wrapper .sidebar ul li a:hover .icon,
+.wrapper .sidebar ul li a.active .icon{
+	color: #0c7db1;
+}
+
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+	display: block;
+}
+
+.wrapper .section{
+	width: calc(100% - 280px);
+	margin-left: 280px;
+	transition: all 0.5s ease;
+}
+
+.wrapper .section .top_navbar{
+	background: rgb(7, 105, 185);
+	height: 70px;
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+ 
+}
+
+.wrapper .section .top_navbar .main_content a{
+	font-size: 28px;
+	color: #f4fbff;
+}
+
+.wrapper .section .top_navbar .main_content a:hover{
+	color: #a2ecff;
+}
+
+ .wrapper .section .container{
+	margin: 30px;
+	background: #fff;
+	padding: 50px;
+	line-height: 28px;
+}
+
+body.active .wrapper .sidebar{
+	left: -225px;
+}
+
+body.active .wrapper .section{
+	margin-left: 0;
+	width: 100%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+    </style>
 </head>
 <body>
-    Helloo Districttt
+    <!-- <div class="wrapper"> -->
+        <!--Top menu -->
+        <!-- <div class="sidebar"> -->
+           <!-- profile image & text -->
+            <!-- menu item -->
+            <!-- <img style="width: 200px;padding-left: 5px;" src="/schoolLogo.jpg"></img>
+            <button class="dropDown"><a href = "/updateDailyStock">Update Daily Data</a></button><br>
+            <button class="dropDown"><a href = "/stockLeftData">Check Stock Left</a></button><br>
+            <button class="dropDown"><a href = "/getReport">Show Report</a></button><br>
+            <button class="dropDown"><a href = "/getBMIinfo">get BMI information</a></button><br>
+            <button class="dropDown"><a href = "/StudentTable">Add and manage student table</a></button><br>
+            <button type = "button" class="col-sm-1 btn btn-primary btn-lg options" onclick="logout()">Logout</button>
+        
+        </div>
+    </div>
+    <div>
+    Helloo Schooll
     <hr><br>
+   
+
+
+    </div> -->
+    <div class="wrapper">
+        <div class="section">
+         <div class="top_navbar">
+             <div class="main_content">
+                 <a href="#">
+                     <i class="fas fa-bars"> Dashboard</i>
+                 </a>
+             </div>
+         </div>
+         <div class="container">
+            <div class="content" id="home-content" style="display: block; ">
+                <h3>Profile</h3><br>
+                <b>District ID: </b><%=districtPr.district_id%><br>
+                <b>District Name: </b><%=districtPr.district_name%><br>
+                <b>Officer Id: </b><%=districtPr.officer_id%><br>
+                <b>Officer Name: </b><%=districtPr.officer_name%><br>
+                <b>Schools Registered: </b><%=districtPr.schools_registered%><br>
+                <b>MDM Budget Allocated: </b><%=districtPr.mdm_budget%><br>
+                <b>Budget Used: </b><%=districtPr.total_budget%><br>
+            </div>
+            <div class="content" id = "city-content">
+                <h3>Cities information</h3><br>
+                <table>
+                    <tr>
+                        <th>City id</th>
+                        <th>City name</th>
+                        <th>Officer id</th>
+                        <th>Officer name</th>
+                        <th>Schools registered</th>
+                    </tr>
+                    <%for (let i = 0 ; i < cityPr.length ; i++){%>
+                        <tr>
+                            <td><%=cityPr[i].city_id%></td>
+                            <td><%=cityPr[i].city_name%></td>
+                            <td><%=cityPr[i].officer_id%></td>
+                            <td><%=cityPr[i].officer_name%></td>
+                            <td><%=cityPr[i].schools_registered%></td>
+                        </tr>
+                    <%}%>
+                </table>    
+            </div>
+            <div class="content" id="extrabudget-content">  
+                <h3>Extra Budgets of Cities</h3><br>
+                <table>
+                    <tr>
+                        <th>City id</th>
+                        <th>Schools enrolled</th>
+                        <th>Budget Allocated</th>
+                        <th>MDM expenses</th>
+                        <th>Extra Budget</th>
+                    </tr>
+                    <%for (let i = 0 ; i < extraBudgetPr.length ; i++){%>
+                        <tr>
+                            <td><%=extraBudgetPr[i].city_id%></td>
+                            <td><%=extraBudgetPr[i].schools_enrolled%></td>
+                            <td><%=extraBudgetPr[i].budget_alloted%></td>
+                            <td><%=extraBudgetPr[i].mdm_expenses%></td>
+                            <td><%=extraBudgetPr[i].extra_budget%></td>
+                        </tr>
+                    <%}%>
+                </table>    
+            </div> 
+            <div class="content" id="grievances-content">
+                <h3>Unresolved Grievances</h3><br>
+                <table>
+                    <tr>
+                        <th>School ID</th>
+                        <th>Complaint number</th>
+                        <th>Date of complaint</th>
+                        <th>Complaint category</th>
+                        <th>Complaint details</th>
+                        <th>Complaint status</th>
+                        <th>Actions taken</th>
+                    </tr>
+                    <%for (let i = 0 ; i < grievancesPr.length ; i++){%>
+                        <tr>
+                            <td><%=grievancesPr[i].school_id%></td>
+                            <td><%=grievancesPr[i].complaint_number%></td>
+                            <td><%=grievancesPr[i].date%></td>
+                            <td><%=grievancesPr[i].grievance_category%></td>
+                            <td><%=grievancesPr[i].grievance_status%></td>
+                            <td><%=grievancesPr[i].actions_taken</td>
+                        </tr>
+                    <%}%>
+                </table>    
+            </div>   
+            <!-- <div class="content" id="menu-content">
+                <h3>Menu</h3><br>
+            </div>
+             -->
+
+            <!-- <div class="content" id="reports-content">
+                <h3>Monthly Report:</h3>
+                <form method="post" action="/school/<%= school.school_id%>/getReports" >
+                    <label >Enter Month in number:</label>
+                    <input tye="number" name="month"  placeholder="Eg:5 for May" required /><br>
+                    <label >Enter Year:</label>
+                    <input tye="number" name="year"  placeholder="Eg:2023"/><br>
+                    <input type="submit" value="Get Report" required/><br>
+                    <input type = "button" value="Back" onclick="">
+
+                </form>  -->
+                <!-- <%=bmi%> -->
+                <!-- ......so on<br>   
+            </div>   
+            <div class="content" id="manage-content">
+                <h3>Manage Data:</h3> -->
+                <!-- <%=bmi%> -->
+                <!-- ......so on<br>   
+            </div>    -->
+
+
+
+
+    
+        </div>
+     </div>
+         <div class="sidebar">
+             <div class="profile">
+                 <img src="/schoolLogo.jpg" alt="profile_picture">
+                 <h3 style="text-transform:uppercase"><%= districtPr.district_name%></h3>
+                 <p>District ID: <%= districtPr.district_id%></p>
+             </div>
+             <ul>
+                 <li>
+                     <a href="#" class="active" id="home" onclick="showContent('home'); return false;">
+                         <span class="icon"><i class="fas fa-home"></i></span>
+                         <span class="item">Home</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="city" onclick="showContent('city'); return false;">
+                         <span class="icon"><i class="fas fa-desktop"></i></span>
+                         <span class="item">Cities Info</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="extrabudget" onclick="showContent('extrabudget');">
+                         <span class="icon"><i class="fas fa-user-friends"></i></span>
+                         <span class="item">Cities Extra Budget</span>
+                     </a>
+                 </li>
+                 <li>
+                    <a href="#" id="grievances" onclick="showContent('grievances');">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">Unresolved Grievances</span>
+                    </a>
+                </li>
+                 <!-- <li>
+                     <a href="#" id="bmi" onclick="showContent('bmi');">
+                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                         <span class="item">Get BMI Info</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="dailyUsage" onclick="showContent('dailyUsage');">
+                         <span class="icon"><i class="fas fa-database"></i></span>
+                         <span class="item">Update Daily Stock</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="reports" onclick="showContent('reports');">
+                         <span class="icon"><i class="fas fa-chart-line"></i></span>
+                         <span class="item">Reports</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#" id="manage" onclick="showContent('manage');">
+                         <span class="icon"><i class="fas fa-user-shield"></i></span>
+                         <span class="item">Manage Student Table</span>
+                     </a>
+                 </li> -->
+                 <li>
+                     <a href="/logout">
+                         <span class="icon"><i class="fas fa-power-off"></i></span>
+                         <span class="item">Logout</span>
+                     </a>
+                 </li>
+             </ul>
+         </div>
+         
+     </div>
+  
+
+    <script>
+        function logout() {
+			window.location.href = '/logout'};
+        
+        
+        var main_content = document.querySelector(".main_content");
+	    main_content.addEventListener("click", ()=>{
+		document.querySelector("body").classList.toggle("active");
+        })
+
+        
+        var lastClick = 'home';
+        function showContent(anchorId){
+            console.log("called")
+            const selectedContenthiv = document.getElementById(anchorId+ '-content');
+            var content = selectedContenthiv.style.display;
+
+            var contenthivs = document.getElementsByClassName('content');
+                    for (var i = 0; i < contenthivs.length; i++) {
+                        contenthivs[i].style.display = 'none';
+                    }
+
+            if(lastClick == anchorId && content == 'block'){
+                selectedContenthiv.style.display = 'none';}
+            else
+                selectedContenthiv.style.display = 'block';
+            lastClick = anchorId;
+        }
+	
+    </script>
+
+    
 </body>
 </html>
