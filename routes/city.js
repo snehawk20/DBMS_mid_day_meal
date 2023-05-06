@@ -61,8 +61,7 @@ router.get('/:cityID', async (req,res) =>{
     });
 
     const id = districtID.rows[0].district_id ;
-    // console.log(id);
-    // console.log(districtID.rows[0].district_id)
+
     const grievancesPr = new Promise((resolve,reject) => {
         cityUser.query(`SELECT complaint_number, school_id, complaint_details from district_grievances_data_func(${id});`,(err,result)=>{
             if(err)

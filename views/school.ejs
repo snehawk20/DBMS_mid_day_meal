@@ -24,10 +24,46 @@ body{
 	background: #f5f6fa;
 }
 
-.content {
+/* .content {
 		display: none;
         margin-top: 10px;
+} */
+
+.content {
+  display: None;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
 }
+
+h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+b {
+  font-weight: bold;
+  font-size: medium;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  color: #20165e;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 0;
+}
+
+valign {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#home-content {
+  display: block;
+}
+
 .wrapper .sidebar{
 	background: rgb(5, 68, 104);
 	position: fixed;
@@ -150,14 +186,7 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
-}
-.labels{
-    /* font-weight: 800; */
-    font-weight: bold;
-    font-family: 'Times New Roman', Times, serif;
-    text-align: justify;
-
+  background-color: #aaaedf;
 }
 
     </style>
@@ -196,18 +225,18 @@ tr:nth-child(even) {
          </div>
          <div class="container">
             <div class="content" id="home-content" style="display: block; ">
-                <h3 style="text-decoration: underline; font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder; font-size: 25px;">School Data:</h3><br>
-                <div style="text-transform:capitalize"><b>school id : </b><%=school.school_id%> </div>
-                <div style="text-transform:capitalize"><b>school name : </b><%=school.school_name%> </div>
-                <div style="text-transform:capitalize"><b>Principal name : </b><%=school.principal_name%> </div>
-                <div style="text-transform:capitalize"><b>contact number : </b><%=school.contact_number%> </div>
-                <div style="text-transform:capitalize"><b>email: </b><%=school.email%> </div>
-                <div style="text-transform:capitalize"><b>school type : </b><%=school.school_type%> </div>
-                <div style="text-transform:capitalize"><b>city id : </b><%=school.city_id%> </div>
-                <div style="text-transform:capitalize"><b>district id : </b><%=school.district_id%> </div>
-                <div style="text-transform:capitalize"><b>primary status : </b><%=school.primary_strength%> </div>
-                <div style="text-transform:capitalize"><b>secondary status : </b><%=school.secondary_strength%> </div>
-                <div style="text-transform:capitalize"><b>mdm enrollment : </b><%=school.mdm_enrollment%> </div>
+                <h3 style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder; font-size: 25px;">School Data</h3><br>
+                <div style="text-transform:capitalize"><b>&emsp;school id : </b> <valign><%=school.school_id%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;school name : </b> <valign><%=school.school_name%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;Principal name : </b> <valign><%=school.principal_name%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;contact number : </b> <valign><%=school.contact_number%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;email: </b> <valign><a href = "mailto: <%=school.email%>"> <%=school.email%> </a></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;school type : </b> <valign><%=school.school_type%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;city id : </b> <valign><%=school.city_id%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;district id : </b> <valign><%=school.district_id%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;primary status : </b> <valign><%=school.primary_strength%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;secondary status : </b> <valign><%=school.secondary_strength%></valign> </div>
+                <div style="text-transform:capitalize"><b>&emsp;mdm enrollment : </b> <valign><%=school.mdm_enrollment%></valign> </div>
             </div>
             <div class="content" id="stock-content">
                 <h3>Add Stock For Items:</h3>
