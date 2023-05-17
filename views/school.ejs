@@ -173,21 +173,7 @@ body.active .wrapper .section{
 	width: 100%;
 }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: white;
-}
 .labels{
     /* font-weight: 800; */
     font-weight: bold;
@@ -254,6 +240,22 @@ input[type=submit]:hover {
   background-color: #29429a;
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  background-color: white;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 </style>
 </head>
 <body>
@@ -301,7 +303,7 @@ input[type=submit]:hover {
             </div>
             </div>     
             <div class="content" id="students-content">
-                <h3 >Students Data:</h3>
+                <h3 >Students Data:</h3><br>
                 <table>
                     <tr>
                         <th>Student ID</th>

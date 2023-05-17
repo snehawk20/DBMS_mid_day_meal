@@ -141,7 +141,8 @@ router.get('/:schoolID/addStock', (req,res)=>{
 
 
 router.post('/:schoolID/updateUsage', async (req,res) =>{
-    const userId = req.session.userData[0];
+    var userId = req.session.userData[0];
+    userId = userId.replace(/^school_manager/ , '')
     const pwd = req.session.userData[1];
 
     const schoolUser = loginClient(userId,pwd);
@@ -221,10 +222,11 @@ router.post('/:schoolID/getReports', async (req,res) =>{
     const schoolUser = loginClient(userId,pwd);
     schoolUser.connect();
 
+    const school_id = Number(userId.replace(/^school_manager/ , ''))
     const month = req.body.month
     const year = req.body.year
     const expenses = await new Promise((resolve,reject)=>{
-        const queryExpense = `select * from school_monthly_expenses_func(${userId},${month},${year})`
+        const queryExpense = `select * from school_monthly_expenses_func(${school_id},${month},${year})`
         schoolUser.query(queryExpense,(err,results)=>{
             if(err)
                 reject(err)
@@ -235,7 +237,7 @@ router.post('/:schoolID/getReports', async (req,res) =>{
     // console.log(expenses.rows)
     // res.redirect(`getReports`)
 
-    res.render("reports.ejs",{data:(expenses.rows)[0], schoolid: userId,m:month, y:year})
+    res.render("reports.ejs",{data:(expenses.rows)[0], schoolid: school_id,m:month, y:year})
 });
 
 router.get('/:schoolID/getReports', async (req,res) =>{
