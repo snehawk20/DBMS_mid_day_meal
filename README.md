@@ -6,7 +6,26 @@ The objective of our project is to create a self-sufficient database to store al
 We shall store stock, enrollment of students, audit details, details on prices and items and daily logs.
 
 ## Installation
-* Create the roles as follows:
- ```create role city_role```
- ```create role school_role```
- ```create role district_role```
+* Login to your `psql` client as user `postgres`
+    sudo -u postgres psql
+* Create the roles as follows:  
+    create role city_role;  
+    create role school_role;  
+    create role district_role;
+* Create a database named `mdm`  
+    create database mdm;
+* Exit the `psql` client and restore the `mdm.tar` file  
+    pg_restore -U postgres -d mdm <<i>path to tar file</i>>
+* Again login to your `psql` client as user `postgres`
+* Create roles for users with login
+    * There are three kinds of roles: district, city and school
+    * They should be named as district_officer<<i>num</i>>, city_officer<<i>num</i>> and school_manager<<i>num</i>>
+    * Where <<i>num</i>> is the respective `district_id`, `city_id` and `school_id`  
+        create role district_officer2 with login password '`<<i>password</i>>`';
+    * Grant the roles the associated permissions of `district_role`, `city_role` and `school_role` respectively  
+        grant district_role to district_officer4;
+
+  
+
+## Schema
+![Schema](https://github.com/snehawk20/DBMS_mid_day_meal/blob/main/schema.jpg)
